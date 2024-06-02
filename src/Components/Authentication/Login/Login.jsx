@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { NavLink, useNavigate } from "react-router-dom";
 import { GrGoogle } from "react-icons/gr";
 import toast from "react-hot-toast";
+import axios from "axios";
 
 const Login = () => {
   const { LoginGeneral, GoogleLogin } = useContext(AuthContext);
@@ -31,8 +32,18 @@ const Login = () => {
   const handleGoogle = () => {
     GoogleLogin()
       .then((result) => {
-        toast.success("Login Successfull");
-        navigate("/");
+        const userInfo = {
+          name: result.user?.displayName,
+          email: result.user?.email,
+        };
+
+        axios
+          .post(`${import.meta.env.VITE_URL}/users`, userInfo)
+          .then((res) => {
+            console.log(res.data)
+            toast.success("Login Successfull");
+            navigate("/");
+          });
       })
       .catch((error) => {
         console.error(error);
@@ -105,7 +116,10 @@ const Login = () => {
 
             <div>
               <div className="flex flex-col gap-2">
-                <div onClick={handleGoogle} className=" bg-green-300 text-white flex justify-center items-center gap-2 py-2 rounded-lg border">
+                <div
+                  onClick={handleGoogle}
+                  className=" bg-green-300 text-white flex justify-center items-center gap-2 py-2 rounded-lg border"
+                >
                   <div>
                     <GrGoogle />
                   </div>

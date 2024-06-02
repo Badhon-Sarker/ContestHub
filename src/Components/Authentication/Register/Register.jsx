@@ -5,6 +5,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { IoEye } from "react-icons/io5";
 import { IoEyeOffSharp } from "react-icons/io5";
 import toast from "react-hot-toast";
+import axios from "axios";
 const Register = () => {
   const [showEye, setShowEye] = useState(false);
   const [passErr, setPassErr] = useState([]);
@@ -42,14 +43,22 @@ const Register = () => {
       return setPassErr("Password must have Lowercase");
     }
 
-    console.log(name, email, image, password);
-
     Register(email, password)
       .then((result) => {
         updateUser(name, image)
           .then((result) => {
-            toast.success("User has been created");
-            navigate("/");
+            const userInfo = {
+              name: name,
+              email: email,
+            };
+            axios
+              .post(`${import.meta.env.VITE_URL}/users`, userInfo)
+              .then((res) => {
+                if (res.data.insertedId) {
+                  toast.success("User has been created");
+                  navigate("/");
+                }
+              });
           })
           .catch((error) => {
             console.log(error);

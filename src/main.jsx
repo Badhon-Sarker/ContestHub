@@ -10,6 +10,8 @@ import AuthProvider from "./Provider/AuthProvider/AuthProvider";
 import Register from "./Components/Authentication/Register/Register";
 import ErrorPage from "./Components/ErrorPage/ErrorPage";
 import { Toaster } from "react-hot-toast";
+import Dashboard from "./Components/Dashbord/Dashboard";
+import Users from "./Components/Dashbord/Users/Users";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +30,16 @@ const router = createBrowserRouter([
       {
         path: "/register",
         element: <Register></Register>,
+      },
+    ],
+  },
+  {
+    path: "dashboard",
+    element: <Dashboard></Dashboard>,
+    children: [
+      {
+        path: "users",
+        element: <Users></Users>,
       },
     ],
   },

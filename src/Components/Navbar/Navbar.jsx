@@ -22,7 +22,7 @@ const Navbar = () => {
       <NavLink
         className={({ isActive }) =>
           isActive
-            ? "text-[#FF7F50] lg:text-black lg:border-b-2 border-[#FF7F50]"
+            ? "text-[#B0E0E6] lg:text-black lg:border-b-2 border-[#B0E0E6]"
             : ""
         }
         // #98FF98
@@ -34,7 +34,7 @@ const Navbar = () => {
       <NavLink
         className={({ isActive }) =>
           isActive
-            ? "text-[#FF7F50] lg:text-black lg:border-b-2 border-[#FF7F50]"
+            ? "text-[#B0E0E6] lg:text-black lg:border-b-2 border-[#B0E0E6]"
             : ""
         }
         // #98FF98
@@ -106,7 +106,7 @@ const Navbar = () => {
                   <p className="font-bold">{user?.displayName}</p>
                 </li>
                 <li>
-                  <Link>Dashbord</Link>
+                  <Link to={'dashboard/users'}>Dashbord</Link>
                 </li>
                 <li>
                   <button onClick={handleLogout} className="bg-gray-100">Logout</button>
