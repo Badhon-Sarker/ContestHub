@@ -15,7 +15,6 @@ import Users from "./Components/Dashbord/Users/Users";
 import {
   QueryClient,
   QueryClientProvider,
-  useQuery,
 } from "@tanstack/react-query";
 import ManageUser from "./Components/Dashbord/Admin/MangeUser/ManageUser";
 import PrivateRoutes from "./PrivateRoutes/PrivateRoutes";
