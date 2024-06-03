@@ -12,6 +12,15 @@ import ErrorPage from "./Components/ErrorPage/ErrorPage";
 import { Toaster } from "react-hot-toast";
 import Dashboard from "./Components/Dashbord/Dashboard";
 import Users from "./Components/Dashbord/Users/Users";
+import {
+  QueryClient,
+  QueryClientProvider,
+  useQuery,
+} from "@tanstack/react-query";
+import ManageUser from "./Components/Dashbord/Admin/MangeUser/ManageUser";
+import PrivateRoutes from "./PrivateRoutes/PrivateRoutes";
+
+const queryClient = new QueryClient();
 
 const router = createBrowserRouter([
   {
@@ -35,12 +44,16 @@ const router = createBrowserRouter([
   },
   {
     path: "dashboard",
-    element: <Dashboard></Dashboard>,
+    element: <PrivateRoutes><Dashboard></Dashboard></PrivateRoutes>,
     children: [
       {
         path: "users",
         element: <Users></Users>,
       },
+      {
+        path: 'manageUsers',
+        element: <ManageUser></ManageUser>
+      }
     ],
   },
 ]);
@@ -48,7 +61,9 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <AuthProvider>
-      <RouterProvider router={router} />
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>
     </AuthProvider>
     <Toaster />
   </React.StrictMode>
