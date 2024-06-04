@@ -10,14 +10,17 @@ import AuthProvider from "./Provider/AuthProvider/AuthProvider";
 import Register from "./Components/Authentication/Register/Register";
 import ErrorPage from "./Components/ErrorPage/ErrorPage";
 import { Toaster } from "react-hot-toast";
-import Dashboard from "./Components/Dashbord/Dashboard";
-import Users from "./Components/Dashbord/Users/Users";
+
+// import Users from "./Components/Dashbord/Users/Users";
 import {
   QueryClient,
   QueryClientProvider,
 } from "@tanstack/react-query";
 import ManageUser from "./Components/Dashbord/Admin/MangeUser/ManageUser";
-import PrivateRoutes from "./PrivateRoutes/PrivateRoutes";
+import Dashboard from "./Components/Dashbord/Dashboard";
+import PerticipatedContest from "./Components/Dashbord/Users/PerticipatedContest/PerticipatedContest";
+
+
 
 const queryClient = new QueryClient();
 
@@ -43,15 +46,16 @@ const router = createBrowserRouter([
   },
   {
     path: "dashboard",
-    element: <PrivateRoutes><Dashboard></Dashboard></PrivateRoutes>,
+    element: <Dashboard></Dashboard>,
     children: [
-      {
-        path: "users",
-        element: <Users></Users>,
-      },
+     
       {
         path: 'manageUsers',
         element: <ManageUser></ManageUser>
+      },
+      {
+        path: 'perticipatedContest',
+        element: <PerticipatedContest></PerticipatedContest>
       }
     ],
   },

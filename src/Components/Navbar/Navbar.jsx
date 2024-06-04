@@ -3,8 +3,11 @@ import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../../Provider/AuthProvider/AuthProvider";
 import logo from "../../../public/logo.png";
 import toast from "react-hot-toast";
+import useGetUser from "../../hooks/GetUser/useGetUser";
 const Navbar = () => {
   const { user, Logout } = useContext(AuthContext);
+  const role = useGetUser()
+  
   
 
   const handleLogout = () => {
@@ -105,9 +108,26 @@ const Navbar = () => {
                 <li>
                   <p className="font-bold">{user?.displayName}</p>
                 </li>
-                <li>
+                
+
+                {role === 'admin' && <li><Link to={'dashboard/manageUsers'}>Dashbord</Link></li>}
+                {role === 'creator' && <li>
+                <Link to={'dashboard/perticipatedContest'}>Dashbord</Link></li>}
+
+                {role === 'user' && <li>
                   <Link to={'dashboard/users'}>Dashbord</Link>
-                </li>
+                
+                </li>}
+
+                {/* {
+                  role === 'admin' ? <li>
+                  <Link to={'dashboard/manageUsers'}>Dashbord</Link>
+                </li> : (user.role === 'creator'? <li>
+                <Link to={'dashboard/perticipatedContest'}>Dashbord</Link></li> : <li>
+                  <Link to={'dashboard/users'}>Dashbord</Link>
+                
+                </li>)
+                } */}
                 <li>
                   <button onClick={handleLogout} className="bg-gray-100">Logout</button>
                 </li>

@@ -1,7 +1,21 @@
 import { Link, Outlet } from "react-router-dom";
+import useGetUser from "../../hooks/GetUser/useGetUser";
+// import { useContext } from "react";
+// import { AuthContext } from "../../Provider/AuthProvider/AuthProvider";
+// import { useQuery } from "@tanstack/react-query";
+// import axios from "axios";
 
 const Dashboard = () => {
-  const isAdmin = true;
+  const role = useGetUser();
+  //   const { user } = useContext(AuthContext);
+  //   const { data: users = [] } = useQuery({
+  //     queryKey: ["users"],
+  //     queryFn: async () => {
+  //       const res = await axios.get(`${import.meta.env.VITE_URL}/users`);
+  //       return res.data;
+  //     },
+  //   });
+
   return (
     <div className="lg:flex">
       <div className="drawer lg:drawer-open">
@@ -9,7 +23,7 @@ const Dashboard = () => {
         <div className="drawer-content flex flex-col justify-center lg:justify-start">
           <label
             htmlFor="my-drawer-2"
-            className="btn bg-[#B0E0E6] drawer-button lg:hidden"
+            className="btn bg-[#FF7F50] drawer-button lg:hidden"
           >
             Menu
           </label>
@@ -29,7 +43,7 @@ const Dashboard = () => {
           <ul className="menu p-4 w-80 min-h-full bg-[#F5F5F5] text-base-content space-y-3">
             {/* Sidebar content here */}
 
-            {isAdmin ? (
+            {role === "admin" && (
               <>
                 <li className="bg-[#B0E0E6] rounded-lg">
                   <Link to={"/dashboard/manageUsers"}>Manage User</Link>
@@ -42,11 +56,31 @@ const Dashboard = () => {
                 <li className="bg-[#B0E0E6] rounded-lg">
                   <Link to={"/"}>Home</Link>
                 </li>
-
               </>
-            ) : (
+            )}
+
+            {role === "creator" && (
               <>
-                
+                <li className="bg-[#B0E0E6] rounded-lg">
+                  <Link to={"/"}>Add Contest</Link>
+                </li>
+
+                <li className="bg-[#B0E0E6] rounded-lg">
+                  <Link to={"/"}>My Created Contest</Link>
+                </li>
+
+                <li className="bg-[#B0E0E6] rounded-lg">
+                  <Link to={"/"}>Contest Submitted Page</Link>
+                </li>
+
+                <li className="bg-[#B0E0E6] rounded-lg">
+                  <Link to={"/"}>Home</Link>
+                </li>
+              </>
+            )}
+
+            {role === "user" && (
+              <>
                 <li className="bg-[#B0E0E6] rounded-lg">
                   <Link to={"/"}>My Participated Contest</Link>
                 </li>
@@ -62,7 +96,6 @@ const Dashboard = () => {
                 <li className="bg-[#B0E0E6] rounded-lg">
                   <Link to={"/"}>Home</Link>
                 </li>
-
               </>
             )}
           </ul>
