@@ -6,19 +6,17 @@ import toast from "react-hot-toast";
 import useGetUser from "../../hooks/GetUser/useGetUser";
 const Navbar = () => {
   const { user, Logout } = useContext(AuthContext);
-  const role = useGetUser()
-  
-  
+  const role = useGetUser();
 
   const handleLogout = () => {
-  Logout()
-    .then((result) => {
-      toast.success("Logout Successful");
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-};
+    Logout()
+      .then((result) => {
+        toast.success("Logout Successful");
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
 
   const links = (
     <div className="flex flex-col lg:flex-row justify-evenly gap-3 font-semibold text-md">
@@ -95,10 +93,7 @@ const Navbar = () => {
                 className="btn btn-ghost btn-circle avatar"
               >
                 <div className="w-10 rounded-full">
-                  <img
-                    alt="Image"
-                    src={user?.photoURL}
-                  />
+                  <img alt="Image" src={user?.photoURL} />
                 </div>
               </div>
               <ul
@@ -108,16 +103,23 @@ const Navbar = () => {
                 <li>
                   <p className="font-bold">{user?.displayName}</p>
                 </li>
-                
 
-                {role === 'admin' && <li><Link to={'dashboard/manageUsers'}>Dashbord</Link></li>}
-                {role === 'creator' && <li>
-                <Link to={'dashboard/perticipatedContest'}>Dashbord</Link></li>}
+                {role === "admin" && (
+                  <li>
+                    <Link to={"dashboard/manageUsers"}>Dashbord</Link>
+                  </li>
+                )}
+                {role === "creator" && (
+                  <li>
+                    <Link to={"dashboard/addContest"}>Dashbord</Link>
+                  </li>
+                )}
 
-                {role === 'user' && <li>
-                  <Link to={'dashboard/users'}>Dashbord</Link>
-                
-                </li>}
+                {role === "user" && (
+                  <li>
+                    <Link to={"dashboard/perticipatedContest"}>Dashbord</Link>
+                  </li>
+                )}
 
                 {/* {
                   role === 'admin' ? <li>
@@ -129,7 +131,9 @@ const Navbar = () => {
                 </li>)
                 } */}
                 <li>
-                  <button onClick={handleLogout} className="bg-gray-100">Logout</button>
+                  <button onClick={handleLogout} className="bg-gray-100">
+                    Logout
+                  </button>
                 </li>
               </ul>
             </div>
@@ -173,5 +177,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
-

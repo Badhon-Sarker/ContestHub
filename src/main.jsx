@@ -19,6 +19,9 @@ import {
 import ManageUser from "./Components/Dashbord/Admin/MangeUser/ManageUser";
 import Dashboard from "./Components/Dashbord/Dashboard";
 import PerticipatedContest from "./Components/Dashbord/Users/PerticipatedContest/PerticipatedContest";
+import AddContest from "./Components/Dashbord/Creator/AddContest/AddContest";
+import MyCreatedContest from "./Components/Dashbord/Creator/MyCreatedContest/MyCreatedContest";
+import ContestSubmittedPage from "./Components/Dashbord/Creator/ContestSubmittedPage/ContestSubmittedPage";
 
 
 
@@ -56,6 +59,18 @@ const router = createBrowserRouter([
       {
         path: 'perticipatedContest',
         element: <PerticipatedContest></PerticipatedContest>
+      },
+      {
+        path: 'addContest',
+        element: <AddContest></AddContest>
+      },
+      {
+        path: 'myCreatedContest',
+        element: <MyCreatedContest></MyCreatedContest>
+      },
+      {
+        path: 'contestSubmitted',
+        element: <ContestSubmittedPage></ContestSubmittedPage>
       }
     ],
   },
