@@ -30,7 +30,7 @@ const Dashboard = () => {
 
           {/* Page content here */}
 
-          <div>
+          <div className="p-4">
             <Outlet></Outlet>
           </div>
         </div>
