@@ -1,13 +1,15 @@
 import axios from "axios";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import { AuthContext } from "../../../../Provider/AuthProvider/AuthProvider";
 
 
 const AddContest = () => {
   const [startDate, setStartDate] = useState(new Date());
+  const {user} = useContext(AuthContext)
   
   
 
@@ -27,6 +29,7 @@ const AddContest = () => {
     const prizeMoney = data.prizeMoney;
     const contestDescription = data.contestDescription;
     const taskInstruction = data.taskInstruction;
+    const contestCreator = user.email
 
     const info = {
       contestName,
@@ -37,6 +40,7 @@ const AddContest = () => {
       prizeMoney,
       contestDescription,
       taskInstruction,
+      contestCreator
     };
 
     axios.post(`${import.meta.env.VITE_URL}/contest`, info)

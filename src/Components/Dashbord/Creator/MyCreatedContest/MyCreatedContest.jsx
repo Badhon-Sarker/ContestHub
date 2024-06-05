@@ -1,12 +1,67 @@
-
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import { useContext } from "react";
+import { AuthContext } from "../../../../Provider/AuthProvider/AuthProvider";
+import { FaEdit, FaTrash } from "react-icons/fa";
 
 const MyCreatedContest = () => {
-    return (
-        <div>
-            my created contest
-            
+    const {user} = useContext(AuthContext)
+
+
+    const { data: getUser = [] } = useQuery({
+        queryKey: ["getUser", user?.email],
+        queryFn: async () => {
+          const res = await axios.get(`${import.meta.env.VITE_URL}/contest/${user?.email}`);
+          return res.data;
+        },
+      });
+
+
+    
+
+  return (
+    <div>
+        <h1 className="flex justify-center items-center text-3xl font-extrabold mb-5">
+        My Created Contest
+      </h1>
+      
+      <div>
+        <div className="overflow-x-auto">
+          <table className="table">
+            {/* head */}
+            <thead>
+              <tr>
+                <th>Number</th>
+                <th>Contest Name</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Edit</th>
+                <th>Delete</th>
+                <th>See Submission</th>
+              </tr>
+            </thead>
+            <tbody>
+              {/* row 1 */}
+            {
+                getUser.map((item, idx) =>   <tr key={idx}>
+                <th>{idx+1}</th>
+                <td>{item.contestName}</td>
+                <td>{item.date}</td>
+                <td>Pending</td>
+                <td><button className="btn"><FaEdit></FaEdit></button></td>
+                <td><button className="btn"><FaTrash></FaTrash></button></td>
+                <td><button className="btn">See Submission</button></td>
+                
+                
+              </tr>)
+            }
+              
+            </tbody>
+          </table>
         </div>
-    );
+      </div>
+    </div>
+  );
 };
 
 export default MyCreatedContest;
