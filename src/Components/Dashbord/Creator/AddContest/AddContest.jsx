@@ -1,10 +1,15 @@
+import axios from "axios";
 import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+
 
 const AddContest = () => {
   const [startDate, setStartDate] = useState(new Date());
+  
+  
 
   const {
     register,
@@ -14,8 +19,40 @@ const AddContest = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data, startDate.toLocaleDateString());
+    const contestName = data.contestName;
+    const contestType = data.contestType;
+    const contestPrice = data.contestPrice;
+    const date = startDate.toLocaleDateString();
+    const image = data.image;
+    const prizeMoney = data.prizeMoney;
+    const contestDescription = data.contestDescription;
+    const taskInstruction = data.taskInstruction;
+
+    const info = {
+      contestName,
+      contestType,
+      contestPrice,
+      date,
+      image,
+      prizeMoney,
+      contestDescription,
+      taskInstruction,
+    };
+
+    axios.post(`${import.meta.env.VITE_URL}/contest`, info)
+      .then((res) => {
+        if (res.data.insertedId) {
+          toast.success("Contest Added");
+          window.location.reload();
+          
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
+
+ 
 
   return (
     <div>
@@ -123,7 +160,7 @@ const AddContest = () => {
               className="textarea textarea-bordered w-full h-28"
               name="ContestDescription"
               placeholder="Contest Description"
-              {...register("ContestDescription", { required: true })}
+              {...register("contestDescription", { required: true })}
             ></textarea>
             {errors.ContestDescription?.type === "required" && (
               <p className=" text-red-400">Prize money is required</p>
@@ -153,104 +190,3 @@ const AddContest = () => {
 };
 
 export default AddContest;
-
-{
-  /* <form onSubmit={handleSubmit}>
-<div className="border-2 p-2 md:p-5 w-full my-3">
-  <div className="md:flex justify-between gap-2">
-    <div className="w-full">
-      <h1>Thumbnail *</h1>
-      <input
-        className="w-full border-2 p-2 rounded-md mb-2"
-        type="text"
-        name="thumbnail"
-        placeholder="Thumbnail URL"
-        id=""
-        required
-      />
-    </div>
-
-    <div className="w-full">
-      <h1>Title *</h1>
-      <input
-        className="w-full border-2 p-2 rounded-md mb-2"
-        type="text"
-        name="postTitle"
-        placeholder="Post title"
-        id=""
-        required
-      />
-    </div>
-  </div>
-
-  <div>
-    <h1>Description *</h1>
-    <textarea
-      className="textarea textarea-bordered w-full h-48"
-      name="description"
-      placeholder="Short description"
-      required
-    ></textarea>
-  </div>
-
-  <div className="md:flex justify-between gap-2">
-    <div className="w-full">
-      <h1>Category *</h1>
-
-      <select
-        name="category"
-        className="select select-bordered w-full mb-2"
-        required
-      >
-        <option value={"Healthcare"}>Healthcare</option>
-        <option value={"Education"}>Education</option>
-        <option value={"Social Service"}>Social Service</option>
-        <option value={"Animal Welfare"}>Animal Welfare</option>
-        <option value={"Environment"}>Environment</option>
-      </select>
-    </div>
-
-    <div className="w-full">
-      <h1>Location *</h1>
-      <input
-        className="w-full border-2 p-2 rounded-md mb-2"
-        type="text"
-        name="location"
-        placeholder="Location"
-        required
-      />
-    </div>
-  </div>
-
-  <div className="md:flex justify-between gap-2">
-    <div className="w-full">
-      <h1>Number Of Volunteer *</h1>
-      <input
-        className="w-full border-2 p-2 rounded-md mb-2"
-        type="number"
-        name="numberOfVol"
-        placeholder="Number of volunteer"
-        id=""
-        required
-      />
-    </div>
-
-    <div className="w-full">
-      <h1>Date*</h1>
-      <div className="p-2 border-2 rounded-lg">
-        <DatePicker
-          selected={startDate}
-          onChange={(date) => setStartDate(date)}
-          minDate={new Date()}
-        />
-      </div>
-    </div>
-  </div>
-
-
-  <div className="flex justify-center my-2">
-    <button className="w-full md:w-1/2 btn">Add Post</button>
-  </div>
-</div>
-</form> */
-}
