@@ -22,6 +22,7 @@ import PerticipatedContest from "./Components/Dashbord/Users/PerticipatedContest
 import AddContest from "./Components/Dashbord/Creator/AddContest/AddContest";
 import MyCreatedContest from "./Components/Dashbord/Creator/MyCreatedContest/MyCreatedContest";
 import ContestSubmittedPage from "./Components/Dashbord/Creator/ContestSubmittedPage/ContestSubmittedPage";
+import AllContest from "./Pages/AllContest/AllContest";
 
 
 
@@ -45,6 +46,10 @@ const router = createBrowserRouter([
         path: "/register",
         element: <Register></Register>,
       },
+      {
+        path: 'allContest',
+        element: <AllContest></AllContest>
+      }
     ],
   },
   {
