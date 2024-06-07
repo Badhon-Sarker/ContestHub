@@ -53,8 +53,9 @@ const ManageUser = () => {
                   <td>{user.name}</td>
                   <td>{user.email}</td>
                   <td>{user.role}</td>
-                  <td><button className="btn" onClick={()=> setIsOpen(true)}>Update Role</button>
-                  <UserRoleModal setIsOpen={setIsOpen} isOpen={isOpen} handleModal={handleModal} user={user}></UserRoleModal></td>
+                  {/* <td><button className="btn" onClick={()=> setIsOpen(true)}>Update Role</button>
+                  <UserRoleModal setIsOpen={setIsOpen} isOpen={isOpen} handleModal={handleModal} user={user}></UserRoleModal></td> */}
+                  <td><UserRoleModal></UserRoleModal></td>
                   
                   <td>
                     <button className="bg-red-200 text-red-500 btn">
