@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 
 
 const AllContestCard = (item) => {
-    console.log(item)
+    
     return (
         <div>
             <div data-aos="fade-up" data-aos-duration="1000">
@@ -53,7 +53,7 @@ const AllContestCard = (item) => {
           
 
           <div className="card-actions justify-center">
-            <NavLink to={`/details/${item._id}`}>
+            <NavLink to={`/ContestDetails/${item.item._id}`}>
               <button className="btn bg-gray-100">View Details</button>
             </NavLink>
           </div>

@@ -23,6 +23,8 @@ import AddContest from "./Components/Dashbord/Creator/AddContest/AddContest";
 import MyCreatedContest from "./Components/Dashbord/Creator/MyCreatedContest/MyCreatedContest";
 import ContestSubmittedPage from "./Components/Dashbord/Creator/ContestSubmittedPage/ContestSubmittedPage";
 import AllContest from "./Pages/AllContest/AllContest";
+import PrivateRoutes from "./PrivateRoutes/PrivateRoutes";
+import ContestDetailspage from "./Pages/AllContest/ContestDetailsPage/ContestDetailspage";
 
 
 
@@ -47,8 +49,12 @@ const router = createBrowserRouter([
         element: <Register></Register>,
       },
       {
-        path: 'allContest',
+        path: '/allContest',
         element: <AllContest></AllContest>
+      },
+      {
+        path: 'contestDetails/:id',
+        element: <PrivateRoutes><ContestDetailspage></ContestDetailspage></PrivateRoutes>
       }
     ],
   },
