@@ -82,15 +82,15 @@ const Dashboard = () => {
             {role === "user" && (
               <>
                 <li className="bg-[#B0E0E6] rounded-lg">
-                  <Link to={"/"}>My Participated Contest</Link>
+                  <Link to={"perticipatedContest"}>My Participated Contest</Link>
                 </li>
 
                 <li className="bg-[#B0E0E6] rounded-lg">
-                  <Link to={"/"}>My Winning Contest</Link>
+                  <Link to={"myWinning"}>My Winning Contest</Link>
                 </li>
 
                 <li className="bg-[#B0E0E6] rounded-lg">
-                  <Link to={"/"}>My Profile</Link>
+                  <Link to={"myProfile"}>My Profile</Link>
                 </li>
 
                 <li className="bg-[#B0E0E6] rounded-lg">

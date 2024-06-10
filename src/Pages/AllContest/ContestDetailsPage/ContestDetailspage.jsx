@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const ContestDetailspage = () => {
   const { id } = useParams();
@@ -38,7 +38,7 @@ const ContestDetailspage = () => {
 
       <p><span className="text-xl md:text-2xl font-semibold my-5">Description:</span> {Details.contestDescription}</p>
 
-      <div className="flex justify-center my-5"><button className="btn">Register</button></div>
+      <div className="flex justify-center my-5"><Link to={`/payment/${Details._id}`}><button className="btn">Register</button></Link></div>
     </div>
   );
 };
