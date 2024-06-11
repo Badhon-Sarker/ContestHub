@@ -28,6 +28,7 @@ import ContestDetailspage from "./Pages/AllContest/ContestDetailsPage/ContestDet
 import Payment from "./Pages/AllContest/ContestDetailsPage/Payment/Payment";
 import MyProfile from "./Components/Dashbord/Users/MyProfile/MyProfile";
 import MyWinningContest from "./Components/Dashbord/Users/MyWinningContest/MyWinningContest";
+import EditMyCreated from "./Components/Dashbord/Creator/MyCreatedContest/EditMyCreated/EditMyCreated";
 
 
 
@@ -97,6 +98,10 @@ const router = createBrowserRouter([
       {
         path: 'myWinning',
         element: <MyWinningContest></MyWinningContest>
+      },
+      {
+        path: '/dashboard/myCreatedContest/editContest/:id',
+        element: <EditMyCreated></EditMyCreated>
       }
       
     ],

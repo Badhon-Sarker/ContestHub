@@ -1,37 +1,43 @@
-import axios from "axios";
 import { useContext, useState } from "react";
+import { useParams } from "react-router-dom";
+import { AuthContext } from "../../../../../Provider/AuthProvider/AuthProvider";
+// import { useForm } from "react-hook-form";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { useForm } from "react-hook-form";
+import axios from "axios";
+
+import { useQuery } from "@tanstack/react-query";
 import toast from "react-hot-toast";
-import { AuthContext } from "../../../../Provider/AuthProvider/AuthProvider";
 
-
-const AddContest = () => {
+const EditMyCreated = () => {
+  const { id } = useParams();
+  const { user } = useContext(AuthContext);
   const [startDate, setStartDate] = useState(new Date());
-  const {user} = useContext(AuthContext)
 
+  const { data: Details = "" } = useQuery({
+    queryKey: ["Details"],
 
-  
-  
+    queryFn: async () => {
+      const { data } = await axios.get(
+        `${import.meta.env.VITE_URL}/contestDetails/${id}`
+      );
+      return data;
+    },
+  });
 
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm();
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const form = e.target;
 
-  const onSubmit = (data) => {
-    const contestName = data.contestName;
-    const contestType = data.contestType;
-    const contestPrice = data.contestPrice;
+    const contestName = form.contestName.value;
+    const contestType = form.contestType.value;
+    const contestPrice = form.contestPrice.value;
     const date = startDate.toLocaleDateString();
-    const image = data.image;
-    const prizeMoney = data.prizeMoney;
-    const contestDescription = data.contestDescription;
-    const taskInstruction = data.taskInstruction;
-    const contestCreator = user.email
+    const image = form.image.value;
+    const prizeMoney = form.prizeMoney.value;
+    const contestDescription = form.contestDescription.value;
+    const taskInstruction = form.taskInstruction.value;
+    const contestCreator = user?.email;
 
     const info = {
       contestName,
@@ -42,53 +48,57 @@ const AddContest = () => {
       prizeMoney,
       contestDescription,
       taskInstruction,
-      contestCreator
+      contestCreator,
     };
 
-    axios.post(`${import.meta.env.VITE_URL}/contest`, info)
-      .then((res) => {
-        if (res.data.insertedId) {
-          toast.success("Contest Added");
-          window.location.reload();
-          
+    console.log(info);
+
+    fetch(`${import.meta.env.VITE_URL}/editContest/${id}`, {
+      method: "PUT",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(info),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.modifiedCount > 0) {
+          toast.success("Successfully Edited");
         }
-      })
-      .catch((error) => {
-        console.log(error);
       });
   };
-
- 
 
   return (
     <div>
       <h1 className="flex justify-center items-center text-3xl font-extrabold mb-5">
-        Add Contest
+        Edit Contest
       </h1>
+
       <div>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit}>
           <div className="md:flex justify-between gap-2">
             <div className="w-full">
               <h1>Contest Name *</h1>
 
               <input
                 type="text"
+                name="contestName"
+                defaultValue={Details.contestName}
                 placeholder="Contest Name"
                 className="input input-bordered w-full p-2 rounded-md mb-2"
-                {...register("contestName", { required: true })}
               />
-              {errors.contestName?.type === "required" && (
-                <p className=" text-red-400">Contest Name is required</p>
-              )}
             </div>
 
             <div className="w-full">
               <h1>Contest Type *</h1>
 
               <select
+                name="contestType"
                 className="select select-bordered w-full mb-2"
-                {...register("contestType", { required: true })}
               >
+                <option defaultValue={Details.contestType}>
+                  {Details.contestType}
+                </option>
                 <option value={"Image Design"}>Image Design</option>
                 <option value={"Article Writing"}>Article Writing</option>
                 <option value={"Marketing Strategy"}>Marketing Strategy</option>
@@ -109,20 +119,18 @@ const AddContest = () => {
 
               <input
                 type="number"
+                name="contestPrice"
+                defaultValue={Details.contestPrice}
                 placeholder="Contest Price"
                 className="input input-bordered w-full p-2 rounded-md mb-2"
-                {...register("contestPrice", { required: true })}
               />
-              {errors.contestPrice?.type === "required" && (
-                <p className=" text-red-400">Contest Price is required</p>
-              )}
             </div>
 
             <div className="w-full">
               <h1>Date*</h1>
               <div className="p-2 border-2 rounded-lg">
                 <DatePicker
-                  selected={startDate}
+                  selected={Details.date}
                   onChange={(date) => setStartDate(date)}
                   minDate={new Date()}
                 />
@@ -136,13 +144,11 @@ const AddContest = () => {
 
               <input
                 type="text"
+                name="image"
+                defaultValue={Details.image}
                 placeholder="Image"
                 className="input input-bordered w-full p-2 rounded-md mb-2"
-                {...register("image", { required: true })}
               />
-              {errors.image?.type === "required" && (
-                <p className=" text-red-400">Image is required</p>
-              )}
             </div>
 
             <div className="w-full">
@@ -150,13 +156,11 @@ const AddContest = () => {
 
               <input
                 type="number"
+                name="prizeMoney"
+                defaultValue={Details.prizeMoney}
                 placeholder="Prize money"
                 className="input input-bordered w-full p-2 rounded-md mb-2"
-                {...register("prizeMoney", { required: true })}
               />
-              {errors.prizeMoney?.type === "required" && (
-                <p className=" text-red-400">Prize money is required</p>
-              )}
             </div>
           </div>
 
@@ -164,26 +168,20 @@ const AddContest = () => {
             <h1>Contest Description *</h1>
             <textarea
               className="textarea textarea-bordered w-full h-28"
-              name="ContestDescription"
+              name="contestDescription"
+              defaultValue={Details.contestDescription}
               placeholder="Contest Description"
-              {...register("contestDescription", { required: true })}
             ></textarea>
-            {errors.ContestDescription?.type === "required" && (
-              <p className=" text-red-400">Prize money is required</p>
-            )}
           </div>
 
           <div>
             <h1>Task Submission Instruction *</h1>
             <textarea
               className="textarea textarea-bordered w-full h-20"
-              name="ContestDescription"
+              name="taskInstruction"
+              defaultValue={Details.taskInstruction}
               placeholder="Task Submission Instruction"
-              {...register("taskInstruction", { required: true })}
             ></textarea>
-            {errors.taskInstruction?.type === "required" && (
-              <p className=" text-red-400">Prize money is required</p>
-            )}
           </div>
 
           <div className="flex justify-center my-2">
@@ -195,4 +193,4 @@ const AddContest = () => {
   );
 };
 
-export default AddContest;
+export default EditMyCreated;
