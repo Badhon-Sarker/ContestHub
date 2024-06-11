@@ -3,6 +3,7 @@ import axios from "axios";
 import { FaTrash } from "react-icons/fa";
 import UserRoleModal from "../../../UserRoleModal/UserRoleModal";
 import { useState } from "react";
+import Swal from "sweetalert2";
 
 const ManageUser = () => {
   const isBlocked = true;
@@ -16,6 +17,33 @@ const ManageUser = () => {
   });
 
 
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`${import.meta.env.VITE_URL}/deleteUser/${id}`, {
+          method: "DELETE",
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            
+            setReload(!reload)
+            Swal.fire({
+              title: "Deleted!",
+              text: "User succesfully deleted",
+              icon: "success",
+            });
+          });
+      }
+    });
+  };
   
   
 
@@ -58,7 +86,7 @@ const ManageUser = () => {
                   <td><UserRoleModal id={user._id} reload={reload} setReload={setReload}></UserRoleModal></td>
                   
                   <td>
-                    <button className="bg-red-200 text-red-500 btn">
+                    <button onClick={()=> handleDelete(user._id)} className="bg-red-200 text-red-500 btn">
                       <FaTrash />
                     </button>
                   </td>
