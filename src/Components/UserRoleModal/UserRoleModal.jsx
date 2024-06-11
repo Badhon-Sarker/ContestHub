@@ -3,6 +3,8 @@ import ReactDOM from "react-dom";
 import Modal from "react-modal";
 
 import { Form, useForm } from "react-hook-form";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 const customStyles = {
   content: {
@@ -17,7 +19,7 @@ const customStyles = {
 
 Modal.setAppElement("#root");
 
-const UserRoleModal = () => {
+const UserRoleModal = ({ id, reload, setReload }) => {
   const [modalIsOpen, setIsOpen] = React.useState(false);
 
   const {
@@ -41,8 +43,38 @@ const UserRoleModal = () => {
   }
 
   const onSubmit = (data) => {
-    const role = data.contestType;
-    console.log(role);
+    const role = data.contestType
+
+    const info =  {
+        role 
+    };
+    // console.log(role);
+
+    // console.log(id);
+
+    // axios
+    //   .put(`${import.meta.env.VITE_URL}/editRole/${id}`, role)
+    //   .then((res) => {
+    //     if (res.data.modifiedCount > 0) {
+    //       toast.success("Successfully Edited");
+    //     }
+    //   })
+    //   .catch((err) => console.error(err));
+
+    fetch(`${import.meta.env.VITE_URL}/editRole/${id}`, {
+        method: "PUT",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(info),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.modifiedCount > 0) {
+            toast.success("Role Updated");
+            setReload(!reload)
+          }
+        });
 
     setIsOpen(false);
   };
@@ -67,8 +99,9 @@ const UserRoleModal = () => {
               className="select select-bordered w-full mb-2"
               {...register("contestType", { required: true })}
             >
-              <option value={"Image Design"}>Image Design</option>
-              <option value={"Article Writing"}>Article Writing</option>
+              <option value={"admin"}>Admin</option>
+              <option value={"creator"}>Creator</option>
+              <option value={"user"}>User</option>
             </select>
 
             <div className="flex justify-between gap-5">

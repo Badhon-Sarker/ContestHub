@@ -50,6 +50,7 @@ const Register = () => {
             const userInfo = {
               name: name,
               email: email,
+              role: 'user'
             };
             axios
               .post(`${import.meta.env.VITE_URL}/users`, userInfo)

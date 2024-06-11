@@ -51,7 +51,7 @@ const EditMyCreated = () => {
       contestCreator,
     };
 
-    console.log(info);
+    // console.log(info);
 
     fetch(`${import.meta.env.VITE_URL}/editContest/${id}`, {
       method: "PUT",

@@ -6,9 +6,9 @@ import { useState } from "react";
 
 const ManageUser = () => {
   const isBlocked = true;
-  const [isOpen, setIsOpen] = useState(false)
+  const [reload, setReload] = useState(false)
   const { data: users = [] } = useQuery({
-    queryKey: ["users"],
+    queryKey: ["users", reload],
     queryFn: async () => {
       const res = await axios.get(`${import.meta.env.VITE_URL}/users`);
       return res.data;
@@ -20,9 +20,9 @@ const ManageUser = () => {
   
 
 
-  const handleModal = (selected) =>{
-    console.log('handle role updated', selected)
-  }
+//   const handleModal = (selected) =>{
+//     console.log('handle role updated', selected)
+//   }
 
   return (
     <div>
@@ -55,7 +55,7 @@ const ManageUser = () => {
                   <td>{user.role}</td>
                   {/* <td><button className="btn" onClick={()=> setIsOpen(true)}>Update Role</button>
                   <UserRoleModal setIsOpen={setIsOpen} isOpen={isOpen} handleModal={handleModal} user={user}></UserRoleModal></td> */}
-                  <td><UserRoleModal></UserRoleModal></td>
+                  <td><UserRoleModal id={user._id} reload={reload} setReload={setReload}></UserRoleModal></td>
                   
                   <td>
                     <button className="bg-red-200 text-red-500 btn">
