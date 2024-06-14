@@ -30,6 +30,7 @@ import MyProfile from "./Components/Dashbord/Users/MyProfile/MyProfile";
 import MyWinningContest from "./Components/Dashbord/Users/MyWinningContest/MyWinningContest";
 import EditMyCreated from "./Components/Dashbord/Creator/MyCreatedContest/EditMyCreated/EditMyCreated";
 import SubmittedRoute from "./Components/Dashbord/Creator/ContestSubmittedPage/SubmittedRoute/SubmittedRoute";
+import ManageContest from "./Components/Dashbord/Admin/ManageContest/ManageContest";
 
 
 
@@ -77,6 +78,10 @@ const router = createBrowserRouter([
         element: <ManageUser></ManageUser>
       },
       {
+        path: 'manageContest',
+        element: <ManageContest></ManageContest>
+      },
+      {
         path: 'perticipatedContest',
         element: <PerticipatedContest></PerticipatedContest>
       },
@@ -106,6 +111,10 @@ const router = createBrowserRouter([
       },
       {
         path: '/dashboard/contestSubmitted/submitted/:name',
+        element: <SubmittedRoute></SubmittedRoute>
+      },
+      {
+        path: '/dashboard/myCreatedContest/submitted/:name',
         element: <SubmittedRoute></SubmittedRoute>
       }
       

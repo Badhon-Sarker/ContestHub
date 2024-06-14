@@ -50,7 +50,7 @@ const Dashboard = () => {
                 </li>
 
                 <li className="bg-[#B0E0E6] rounded-lg">
-                  <Link to={"/"}>Manage Contests</Link>
+                  <Link to={"/dashboard/manageContest"}>Manage Contests</Link>
                 </li>
 
                 <li className="bg-[#B0E0E6] rounded-lg">

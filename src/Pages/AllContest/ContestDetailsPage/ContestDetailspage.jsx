@@ -32,14 +32,30 @@ const ContestDetailspage = () => {
     },
   });
 
+  // console.log(Details, myParticipate)
 
-  const isExist = () =>{
-   const exist = myParticipate.map(item => item.contestName === Details.contestName)
-   if(exist){
-    return toast.error('You have already participated')
-   }else{
-    navigation(`/payment/${Details._id}`)
-   }
+
+
+  const isExist = (id) =>{
+
+    if(myParticipate.length === 0){
+      return navigation(`/payment/${id}`)
+      
+    }
+   const exist = myParticipate.find(item => item.contestName === Details.contestName)
+  //  const existEmail = myParticipate.map(item => item.contestName === Details.contestName)
+   
+
+    if(exist){
+      return toast.error('You have already participated')
+    }else{
+      navigation(`/payment/${id}`)
+    }
+  //  if(exist){
+  //   return toast.error('You have already participated')
+  //  }else{
+  //   navigation(`/payment/${id}`)
+  //  }
   }
 
   const disabled = user.email === myParticipate.contestCreator || user.email === Details.contestCreator

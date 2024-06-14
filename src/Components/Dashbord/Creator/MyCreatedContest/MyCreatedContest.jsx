@@ -76,22 +76,28 @@ const MyCreatedContest = () => {
                   <th>{idx + 1}</th>
                   <td>{item.contestName}</td>
                   <td>{item.date}</td>
-                  <td>Pending</td>
+                  <td className={item.contestStatus === 'accepted' ? 'text-green-900 font-bold' : 'text-black'}>{item.contestStatus}</td>
                   <td>
-                    <Link to={`editContest/${item._id}`}><button className="btn">
+                    {
+                      item.contestStatus === 'accepted' ? <button disabled className="btn"><FaEdit></FaEdit></button> : <Link to={`editContest/${item._id}`}><button className="btn">
                       <FaEdit></FaEdit>
                     </button></Link>
+                    }
+                    
                   </td>
                   <td>
-                    <button
+                    {
+                      item.contestStatus === 'accepted' ? <button disabled className="btn"><FaTrash></FaTrash></button> : <button
                       onClick={() => handleDelete(item._id)}
                       className="btn"
                     >
                       <FaTrash></FaTrash>
                     </button>
+                    }
+                    
                   </td>
                   <td>
-                    <button className="btn">See Submission</button>
+                    <Link to={`submitted/${item.contestName}`}><button className="btn">See Submission</button></Link>
                   </td>
                 </tr>
               ))}

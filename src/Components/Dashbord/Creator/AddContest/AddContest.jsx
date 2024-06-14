@@ -33,6 +33,7 @@ const AddContest = () => {
     const contestDescription = data.contestDescription;
     const taskInstruction = data.taskInstruction;
     const contestCreator = user.email
+    const contestStatus = 'pending'
 
     const info = {
       contestName,
@@ -43,7 +44,8 @@ const AddContest = () => {
       prizeMoney,
       contestDescription,
       taskInstruction,
-      contestCreator
+      contestCreator,
+      contestStatus
     };
 
     axios.post(`${import.meta.env.VITE_URL}/contest`, info)
