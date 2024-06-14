@@ -29,6 +29,7 @@ import Payment from "./Pages/AllContest/ContestDetailsPage/Payment/Payment";
 import MyProfile from "./Components/Dashbord/Users/MyProfile/MyProfile";
 import MyWinningContest from "./Components/Dashbord/Users/MyWinningContest/MyWinningContest";
 import EditMyCreated from "./Components/Dashbord/Creator/MyCreatedContest/EditMyCreated/EditMyCreated";
+import SubmittedRoute from "./Components/Dashbord/Creator/ContestSubmittedPage/SubmittedRoute/SubmittedRoute";
 
 
 
@@ -102,6 +103,10 @@ const router = createBrowserRouter([
       {
         path: '/dashboard/myCreatedContest/editContest/:id',
         element: <EditMyCreated></EditMyCreated>
+      },
+      {
+        path: '/dashboard/contestSubmitted/submitted/:name',
+        element: <SubmittedRoute></SubmittedRoute>
       }
       
     ],

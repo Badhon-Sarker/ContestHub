@@ -15,7 +15,7 @@ const PerticipatedContest = () => {
         },
       });
 
-      console.log(myParticipate)
+      // console.log(myParticipate)
 
     return (
         <div>

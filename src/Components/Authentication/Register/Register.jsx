@@ -5,6 +5,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { IoEye } from "react-icons/io5";
 import { IoEyeOffSharp } from "react-icons/io5";
 import toast from "react-hot-toast";
+import { loadCaptchaEnginge, LoadCanvasTemplate, LoadCanvasTemplateNoReload, validateCaptcha } from 'react-simple-captcha';
 import axios from "axios";
 const Register = () => {
   const [showEye, setShowEye] = useState(false);
@@ -126,6 +127,21 @@ const Register = () => {
                 {...register("registerPhoto")}
               />
             </div>
+
+
+            {/* <div className="form-control">
+              <label className="label">
+                <span className="label-text text-white font-playfair">
+                <LoadCanvasTemplate />
+                </span>
+              </label>
+              <input
+                type="text"
+                placeholder="Input the text"
+                className="input input-bordered "
+                {...register("capcha")}
+              />
+            </div> */}
 
             <div className="form-control">
               <label className="label">

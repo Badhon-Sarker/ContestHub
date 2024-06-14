@@ -7,7 +7,8 @@ import { AuthContext } from "../../../../Provider/AuthProvider/AuthProvider";
 
 const Payment = () => {
   const { id } = useParams();
-  const {user} = useContext(AuthContext)
+  const { user } = useContext(AuthContext);
+
 
   const { data: Details = "" } = useQuery({
     queryKey: ["Details"],
@@ -29,11 +30,12 @@ const Payment = () => {
     const prizeMoney = Details.prizeMoney;
     const contestDescription = Details.contestDescription;
     const taskInstruction = Details.taskInstruction;
-    const contestCreator = Details.email;
-    const participator = user?.email
+    const contestCreator = Details.contestCreator;
+    const participatorName = user?.displayName;
+    const participatorEmail = user?.email;
 
     const Data = {
-        contestName,
+      contestName,
       contestType,
       contestPrice,
       date,
@@ -42,7 +44,8 @@ const Payment = () => {
       contestDescription,
       taskInstruction,
       contestCreator,
-      participator
+      participatorName,
+      participatorEmail,
     };
     axios
       .post(`${import.meta.env.VITE_URL}/contestSubmit`, Data)

@@ -1,9 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { Link, useParams } from "react-router-dom";
+import { useContext } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { AuthContext } from "../../../Provider/AuthProvider/AuthProvider";
+import toast from "react-hot-toast";
+import { BsListNested } from "react-icons/bs";
 
 const ContestDetailspage = () => {
   const { id } = useParams();
+  const {user} = useContext(AuthContext)
+  const navigation = useNavigate()
+  
 
   const { data: Details = "" } = useQuery({
     queryKey: ["Details"],
@@ -16,7 +23,32 @@ const ContestDetailspage = () => {
     },
   });
 
-  console.log(Details);
+
+  const { data: myParticipate = [] } = useQuery({
+    queryKey: ["myParticipate", user?.email],
+    queryFn: async () => {
+      const res = await axios.get(`${import.meta.env.VITE_URL}/myParticipate/${user?.email}`);
+      return res.data;
+    },
+  });
+
+
+  const isExist = () =>{
+   const exist = myParticipate.map(item => item.contestName === Details.contestName)
+   if(exist){
+    return toast.error('You have already participated')
+   }else{
+    navigation(`/payment/${Details._id}`)
+   }
+  }
+
+  const disabled = user.email === myParticipate.contestCreator || user.email === Details.contestCreator
+
+
+
+
+
+
   return (
     <div>
       <h1 className="flex justify-center items-center text-3xl font-extrabold mb-5">
@@ -38,7 +70,9 @@ const ContestDetailspage = () => {
 
       <p><span className="text-xl md:text-2xl font-semibold my-5">Description:</span> {Details.contestDescription}</p>
 
-      <div className="flex justify-center my-5"><Link to={`/payment/${Details._id}`}><button className="btn">Register</button></Link></div>
+      
+
+      <div className="flex justify-center my-5">{disabled? <button disabled className="btn">Register</button> : <button onClick={()=>{isExist(Details._id)}} className='btn'>Register</button>}</div>
     </div>
   );
 };

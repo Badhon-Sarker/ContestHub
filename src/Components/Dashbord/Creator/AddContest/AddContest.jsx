@@ -18,6 +18,7 @@ const AddContest = () => {
   const {
     register,
     handleSubmit,
+    reset,
     watch,
     formState: { errors },
   } = useForm();
@@ -49,7 +50,8 @@ const AddContest = () => {
       .then((res) => {
         if (res.data.insertedId) {
           toast.success("Contest Added");
-          window.location.reload();
+          reset()
+        
           
         }
       })
