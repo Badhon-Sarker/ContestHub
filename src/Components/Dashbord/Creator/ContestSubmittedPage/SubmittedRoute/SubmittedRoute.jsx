@@ -43,7 +43,7 @@ const SubmittedRoute = () => {
       },[winnerDetails.length])
 
       
-      const handleWinner = (id, winnerName ,email) =>{
+      const handleWinner = (id, winnerName ,email, image, prizeMoney, contestDescription, contestCreator) =>{
 
 
         if(winnerDetails.length > 0){
@@ -57,7 +57,11 @@ const SubmittedRoute = () => {
             winnerName: winnerName,
             winnerEmail: email,
             submittedId: id,
-            contestName: name
+            contestName: name,
+            contestImage: image,
+            prizeMoney: prizeMoney,
+            contestDescription: contestDescription,
+            contestCreator: contestCreator
 
         }
 
@@ -116,7 +120,7 @@ const SubmittedRoute = () => {
                   <td>{item.participatorName}</td>
                   <td>{item.participatorEmail}</td>
                   <td className="text-primary">link</td>
-                  <td>{declared? <button disabled className="btn">Declare Win</button> : <button onClick={()=> handleWinner(item._id, item.participatorName, item.participatorEmail )} className="btn">Declare Win</button>}</td>
+                  <td>{declared? <button disabled className="btn">Declare Win</button> : <button onClick={()=> handleWinner(item._id, item.participatorName, item.participatorEmail , item.image, item.prizeMoney, item.contestDescription, item.contestCreator )} className="btn">Declare Win</button>}</td>
                  
                 </tr>
               ))}
