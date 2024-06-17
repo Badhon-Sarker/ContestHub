@@ -1,3 +1,5 @@
+import PopularContest from "./PopularContest/PopularContest";
+
 const Home = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -45,6 +47,13 @@ const Home = () => {
       </div>
 
       {/* banner part end here */}
+
+      {/* popular contest starts */}
+      <div className="my-5">
+
+        <PopularContest></PopularContest>
+
+      </div>
 
 
 

@@ -34,6 +34,7 @@ const AddContest = () => {
     const taskInstruction = data.taskInstruction;
     const contestCreator = user.email
     const contestStatus = 'pending'
+    const submitCount = 0
 
     const info = {
       contestName,
@@ -45,7 +46,8 @@ const AddContest = () => {
       contestDescription,
       taskInstruction,
       contestCreator,
-      contestStatus
+      contestStatus,
+      submitCount
     };
 
     axios.post(`${import.meta.env.VITE_URL}/contest`, info)
