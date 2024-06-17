@@ -51,6 +51,7 @@ const Register = () => {
             const userInfo = {
               name: name,
               email: email,
+              image: image,
               role: 'user'
             };
             axios

@@ -63,6 +63,7 @@ const MyProfile = () => {
 
     const info = {
         name,
+        image,
         location
     }
 

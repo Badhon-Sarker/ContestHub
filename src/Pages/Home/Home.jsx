@@ -1,3 +1,4 @@
+import BestContestCreator from "./BestContestCreator/BestContestCreator";
 import PopularContest from "./PopularContest/PopularContest";
 
 const Home = () => {
@@ -51,7 +52,18 @@ const Home = () => {
       {/* popular contest starts */}
       <div className="my-5">
 
+        <h1 className="text-2xl font-bold text-center">Popular Contest</h1>
+
         <PopularContest></PopularContest>
+
+
+        {/* best contest creator */}
+        <div>
+        <h1 className="text-2xl font-bold text-center">Best Contest Creator</h1>
+
+        <BestContestCreator></BestContestCreator>
+
+        </div>
 
       </div>
 

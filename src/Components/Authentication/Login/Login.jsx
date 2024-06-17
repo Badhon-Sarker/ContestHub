@@ -8,6 +8,7 @@ import axios from "axios";
 
 const Login = () => {
   const { LoginGeneral, GoogleLogin } = useContext(AuthContext);
+  
   const navigate = useNavigate();
   const {
     register,
@@ -35,6 +36,7 @@ const Login = () => {
         const userInfo = {
           name: result.user?.displayName,
           email: result.user?.email,
+          image: result.user?.photoURL,
           role: 'user'
         };
 
