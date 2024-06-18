@@ -1,17 +1,40 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "../../../Provider/AuthProvider/AuthProvider";
 import { useForm } from "react-hook-form";
 import { NavLink, useNavigate } from "react-router-dom";
 import { IoEye } from "react-icons/io5";
 import { IoEyeOffSharp } from "react-icons/io5";
 import toast from "react-hot-toast";
-import { loadCaptchaEnginge, LoadCanvasTemplate, LoadCanvasTemplateNoReload, validateCaptcha } from 'react-simple-captcha';
+import {
+  loadCaptchaEnginge,
+  LoadCanvasTemplate,
+  LoadCanvasTemplateNoReload,
+  validateCaptcha,
+} from "react-simple-captcha";
 import axios from "axios";
 const Register = () => {
   const [showEye, setShowEye] = useState(false);
   const [passErr, setPassErr] = useState([]);
   const navigate = useNavigate();
   const { Register, updateUser } = useContext(AuthContext);
+  const capchaRef = useRef(null)
+  const [disable, setDisable] = useState(true)
+
+  useEffect(() => {
+    loadCaptchaEnginge(6);
+  }, []);
+
+
+  const handleValid= () =>{
+    const value = capchaRef.current.value
+    
+    if (validateCaptcha(value)==true) {
+     setDisable(false)
+  }else{
+    setDisable(true)
+  }
+
+  }
 
   const handleEye = () => {
     setShowEye(!showEye);
@@ -52,7 +75,7 @@ const Register = () => {
               name: name,
               email: email,
               image: image,
-              role: 'user'
+              role: "user",
             };
             axios
               .post(`${import.meta.env.VITE_URL}/users`, userInfo)
@@ -129,7 +152,6 @@ const Register = () => {
               />
             </div>
 
-
             {/* <div className="form-control">
               <label className="label">
                 <span className="label-text text-white font-playfair">
@@ -176,8 +198,26 @@ const Register = () => {
                 <NavLink to={"/login"}>Login</NavLink>
               </div>
             </div>
+
+            <div className="form-control">
+              <label className="label">
+                <LoadCanvasTemplate />
+              </label>
+              <input
+                type="text"
+                name="capcha"
+                ref={capchaRef}
+                placeholder="Input Capcha"
+                className="input input-bordered "
+               
+              />
+
+              <button onClick={handleValid} className="btn btn-xs mt-2">validate</button>
+            </div>
             <div className="form-control mt-2">
-              <button className="btn  bg-primary text-white ">Register</button>
+
+              {disable?  <button disabled className="btn  bg-primary text-white ">Register</button> :  <button className="btn  bg-primary text-white ">Register</button>}
+             
             </div>
           </form>
         </div>
