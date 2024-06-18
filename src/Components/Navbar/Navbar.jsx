@@ -130,6 +130,7 @@ const Navbar = () => {
                 
                 </li>)
                 } */}
+                <li><Link to={'/leaderboard'}><p>Leaderboard</p></Link></li>
                 <li>
                   <button onClick={handleLogout} className="bg-gray-100">
                     Logout

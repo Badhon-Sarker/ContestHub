@@ -8,6 +8,8 @@ import toast from "react-hot-toast";
 
 const MyProfile = () => {
   const { user, updateUser } = useContext(AuthContext);
+
+  
   const { data: myWinnings = [] } = useQuery({
     queryKey: ["myWinnings", user?.email],
     queryFn: async () => {

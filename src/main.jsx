@@ -31,6 +31,7 @@ import MyWinningContest from "./Components/Dashbord/Users/MyWinningContest/MyWin
 import EditMyCreated from "./Components/Dashbord/Creator/MyCreatedContest/EditMyCreated/EditMyCreated";
 import SubmittedRoute from "./Components/Dashbord/Creator/ContestSubmittedPage/SubmittedRoute/SubmittedRoute";
 import ManageContest from "./Components/Dashbord/Admin/ManageContest/ManageContest";
+import LeaderBoard from "./Pages/LeaderBoard/LeaderBoard";
 
 
 
@@ -65,6 +66,10 @@ const router = createBrowserRouter([
       {
         path: '/payment/:id',
         element: <Payment></Payment>
+      },
+      {
+        path: '/leaderboard',
+        element: <LeaderBoard></LeaderBoard>
       }
     ],
   },

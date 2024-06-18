@@ -31,10 +31,6 @@ const BestCreator = ({creator}) => {
 
 
 
-    //   console.log(creatorsInfo) contest
-
-    // console.log(CreatorContestInfo)
-
 
     return (
         <div className="flex justify-center">
