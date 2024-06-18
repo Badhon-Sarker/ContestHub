@@ -1,15 +1,26 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { AuthContext } from "../../../Provider/AuthProvider/AuthProvider";
 import toast from "react-hot-toast";
-import { BsListNested } from "react-icons/bs";
+import CardProfile from "./CardProfile";
+// import DatePicker from "react-datepicker";
+// import "react-datepicker/dist/react-datepicker.css";
+
 
 const ContestDetailspage = () => {
   const { id } = useParams();
   const {user} = useContext(AuthContext)
   const navigation = useNavigate()
+  const [Attempted, setAttemped] = useState([])
+  const [AllWinner, setAllWinner] = useState([])
+  const [winner, setWinner] = useState([])
+  // const [startDate, setStartDate] = useState(new Date());
+
+  const [dateDis, setDateDis] = useState(false)
+
+
   
 
   const { data: Details = "" } = useQuery({
@@ -32,36 +43,89 @@ const ContestDetailspage = () => {
     },
   });
 
+
+
+  
+
+  const { data: Attempt = "" } = useQuery({
+    queryKey: ["Attempt", Details],
+
+    queryFn: async () => {
+      const { data } = await axios.get(
+        `${import.meta.env.VITE_URL}/submittedDetails/${Details?.contestName}`
+      );
+      setAttemped(data)
+      return data;
+    },
+  });
+
   // console.log(Details, myParticipate)
 
 
+  const { data: AllWinners = [] } = useQuery({
+    queryKey: ["AllWinners"],
+    queryFn: async () => {
+      const res = await axios.get(`${import.meta.env.VITE_URL}/allWinners`);
+      setAllWinner(res.data);
+      return res.data;
+    },
+  });
 
-  const isExist = (id) =>{
 
-    if(myParticipate.length === 0){
-      return navigation(`/payment/${id}`)
-      
-    }
-   const exist = myParticipate.find(item => item.contestName === Details.contestName)
-  //  const existEmail = myParticipate.map(item => item.contestName === Details.contestName)
-   
 
-    if(exist){
-      return toast.error('You have already participated')
-    }else{
-      navigation(`/payment/${id}`)
-    }
-  //  if(exist){
-  //   return toast.error('You have already participated')
-  //  }else{
-  //   navigation(`/payment/${id}`)
-  //  }
+  
+  const disabled = user.email === myParticipate.contestCreator || user.email === Details.contestCreator 
+
+  const today = new Date().toLocaleDateString()
+
+
+ useEffect(()=>{
+  if(Details.date <  today){
+    setDateDis(true)
+   }else{
+    setDateDis(false)
+   }
+ },[today, Details.date ])
+
+//  console.log(Details.date)
+
+const isWinnerExist = AllWinner.find(winner => winner.contestName === Details.contestName)
+
+
+
+
+
+
+const isExist = (id) =>{
+
+  if(isWinnerExist){
+    return toast.error('Winner has been Decided')
   }
 
-  const disabled = user.email === myParticipate.contestCreator || user.email === Details.contestCreator
 
+  if(Details.date <  today){
+    return toast.error('Not Available')
+   }
 
+  if(myParticipate.length === 0){
+    return navigation(`/payment/${id}`)
+    
+  }
+ const exist = myParticipate.find(item => item.contestName === Details.contestName)
+//  const existEmail = myParticipate.map(item => item.contestName === Details.contestName)
+ 
 
+  if(exist){
+    return toast.error('You have already participated')
+  }else{
+    navigation(`/payment/${id}`)
+  }
+//  if(exist){
+//   return toast.error('You have already participated')
+//  }else{
+//   navigation(`/payment/${id}`)
+//  }
+}
 
 
 
@@ -76,10 +140,18 @@ const ContestDetailspage = () => {
         </div>
         <div className="md:col-span-4 flex items-center">
           <div className=" space-y-2 md:space-y-3">
-          <h1 className="text-xl md:text-2xl font-semibold">Attempted Count: 10</h1>
+          <h1 className="text-xl md:text-2xl font-semibold">Attempted Count: {Attempted.length}</h1>
           <h1 className="text-xl md:text-2xl font-semibold">Contest Prize: {Details.prizeMoney}</h1>
-          <h1 className="text-xl md:text-2xl font-semibold">Deadline: {Details.date}</h1>
-          <h1 className="text-xl md:text-2xl font-semibold">Contest Winner : Fuhgjkde </h1>
+          <h1 className="text-xl md:text-2xl font-semibold">Deadline: {dateDis? <span className="text-red-500">Not Available</span>: Details.date}</h1>
+          {
+            isWinnerExist?  <div>
+              <h1 className="text-xl md:text-2xl font-semibold">Contest Winner : </h1>
+
+            <CardProfile isWinnerExist={isWinnerExist}></CardProfile>
+              
+              </div> : ''
+          }
+         
           </div>
         </div>
       </div>

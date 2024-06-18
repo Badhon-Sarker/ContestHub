@@ -32,6 +32,7 @@ import EditMyCreated from "./Components/Dashbord/Creator/MyCreatedContest/EditMy
 import SubmittedRoute from "./Components/Dashbord/Creator/ContestSubmittedPage/SubmittedRoute/SubmittedRoute";
 import ManageContest from "./Components/Dashbord/Admin/ManageContest/ManageContest";
 import LeaderBoard from "./Pages/LeaderBoard/LeaderBoard";
+import SearchAll from "./Pages/Home/SearchAll/SearchAll";
 
 
 
@@ -65,17 +66,21 @@ const router = createBrowserRouter([
       },
       {
         path: '/payment/:id',
-        element: <Payment></Payment>
+        element: <PrivateRoutes><Payment></Payment></PrivateRoutes>
       },
       {
         path: '/leaderboard',
         element: <LeaderBoard></LeaderBoard>
+      },
+      {
+        path: '/search/:query',
+        element: <SearchAll></SearchAll>
       }
     ],
   },
   {
     path: "dashboard",
-    element: <Dashboard></Dashboard>,
+    element: <PrivateRoutes><Dashboard></Dashboard></PrivateRoutes>,
     children: [
      
       {

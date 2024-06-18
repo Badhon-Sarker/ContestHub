@@ -1,7 +1,29 @@
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import { useState } from "react";
 import { NavLink } from "react-router-dom";
 
 
 const AllContestCard = (item) => {
+
+  const [Attempted, setAttemped] = useState([])
+
+  const { data: Attempt = "" } = useQuery({
+    queryKey: ["Attempt", item],
+
+    queryFn: async () => {
+      const { data } = await axios.get(
+        `${import.meta.env.VITE_URL}/submittedDetails/${item?.item?.contestName}`
+      );
+      setAttemped(data)
+      return data;
+    },
+  });
+
+  // console.log(Attempted)
+
+
+  
     
     return (
         <div>
@@ -45,7 +67,7 @@ const AllContestCard = (item) => {
                 data-aos-duration="1200"
                 className="font-semibold"
               >
-                Attempted count: <span></span>
+                Attempted count: <span>{Attempted.length}</span>
               </h1>
             </div>
           </div>

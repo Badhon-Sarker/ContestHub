@@ -80,7 +80,7 @@ const CheckoutForm = ({ id }) => {
         price: TotalPrice,
       })
       .then((res) => {
-        console.log(res.data.clientSecret);
+        // console.log(res.data.clientSecret);
         setClientSecret(res.data.clientSecret);
       });
   }, [TotalPrice]);

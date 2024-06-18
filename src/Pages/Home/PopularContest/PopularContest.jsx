@@ -26,7 +26,8 @@ const PopularContest = () => {
   //     }
 
   //   }
-  const getSort = allContest.sort((a, b) => b.submitCount - a.submitCount  )
+  const getSorts = allContest.sort((a, b) => b.submitCount - a.submitCount  )
+  const getSort = getSorts.slice(0, 6);
 
 //   console.log(getSort)
   

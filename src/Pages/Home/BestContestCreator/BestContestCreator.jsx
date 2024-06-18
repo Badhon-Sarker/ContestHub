@@ -18,7 +18,11 @@ const BestContestCreator = () => {
     },
   });
 
-  const getSort = allContest.sort((a, b) => b.submitCount - a.submitCount);
+  const getSorts = allContest.sort((a, b) => b.submitCount - a.submitCount);
+
+  const getSort = getSorts.slice(0, 3);
+
+  
 
   //   getSort.map((contest) => {
   //     doc.push(contest.contestCreator)

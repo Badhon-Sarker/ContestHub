@@ -1,11 +1,21 @@
+import { useNavigate } from "react-router-dom";
 import BestContestCreator from "./BestContestCreator/BestContestCreator";
 import PopularContest from "./PopularContest/PopularContest";
+import SearchAll from "./SearchAll/SearchAll";
+import Advertise from "./Adevertise/Advertise";
 
 const Home = () => {
+
+  const navigate = useNavigate()
   const handleSubmit = (e) => {
     e.preventDefault();
     const search = e.target.search.value;
-    console.log(search);
+    navigate(`/search/${search}`)
+
+
+
+    
+    
   };
   return (
     <div>
@@ -59,11 +69,23 @@ const Home = () => {
 
         {/* best contest creator */}
         <div>
-        <h1 className="text-2xl font-bold text-center">Best Contest Creator</h1>
+        <h1 className="text-2xl font-bold text-center my-10">Best Contest Creator</h1>
 
         <BestContestCreator></BestContestCreator>
 
         </div>
+
+
+
+
+
+      </div>
+
+
+      {/* advertise here */}
+      <div className="my-10" >
+
+        <Advertise></Advertise>
 
       </div>
 

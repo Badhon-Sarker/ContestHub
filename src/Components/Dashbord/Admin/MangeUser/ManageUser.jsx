@@ -4,10 +4,13 @@ import { FaTrash } from "react-icons/fa";
 import UserRoleModal from "../../../UserRoleModal/UserRoleModal";
 import { useState } from "react";
 import Swal from "sweetalert2";
+import toast from "react-hot-toast";
 
 const ManageUser = () => {
-  const isBlocked = true;
-  const [reload, setReload] = useState(false)
+  
+  const [reload, setReload] = useState(false);
+ 
+
   const { data: users = [] } = useQuery({
     queryKey: ["users", reload],
     queryFn: async () => {
@@ -15,7 +18,6 @@ const ManageUser = () => {
       return res.data;
     },
   });
-
 
   const handleDelete = (id) => {
     Swal.fire({
@@ -33,8 +35,7 @@ const ManageUser = () => {
         })
           .then((res) => res.json())
           .then((data) => {
-            
-            setReload(!reload)
+            setReload(!reload);
             Swal.fire({
               title: "Deleted!",
               text: "User succesfully deleted",
@@ -44,13 +45,66 @@ const ManageUser = () => {
       }
     });
   };
+
+  const [blocked, setBlocked] = useState([]);
+
+  const { data: blockedUsers = [] } = useQuery({
+    queryKey: ["blockedUsers", reload],
+    queryFn: async () => {
+      const res = await axios.get(`${import.meta.env.VITE_URL}/getBlock`);
+      setBlocked(res.data);
+      return res.data;
+    },
+  });
+
+  const isExist = (email) => {
+    const check = blocked.find((item) => item.email === email);
+
+    return check;
+  };
+
   
+  const handleBlock = (email, name) => {
+    const info = {
+      name: name,
+      email: email,
+    };
+
+    axios
+      .post(`${import.meta.env.VITE_URL}/block`, info)
+      .then((res) => {
+        if (res.data.insertedId) {
+          toast.success("User Blocked");
+          isExist(email)
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   
 
 
-//   const handleModal = (selected) =>{
-//     console.log('handle role updated', selected)
-//   }
+
+  const handleUnBlock = (email) =>{
+
+    const getId = blocked.find((item) => item.email === email);
+
+    fetch(`${import.meta.env.VITE_URL}/Unblock/${getId._id}`, {
+      method: "DELETE",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setReload(!reload);
+        toast.success("User Unblocked");
+        isExist(email)
+        
+      });
+  }
+  //   const handleModal = (selected) =>{
+  //     console.log('handle role updated', selected)
+  //   }
 
   return (
     <div>
@@ -75,7 +129,6 @@ const ManageUser = () => {
             <tbody>
               {/* row 1 */}
               {users.map((user, idx) => (
-                
                 <tr key={user._id} className=" hover:bg-gray-200">
                   <td>{idx + 1}</td>
                   <td>{user.name}</td>
@@ -83,24 +136,36 @@ const ManageUser = () => {
                   <td>{user.role}</td>
                   {/* <td><button className="btn" onClick={()=> setIsOpen(true)}>Update Role</button>
                   <UserRoleModal setIsOpen={setIsOpen} isOpen={isOpen} handleModal={handleModal} user={user}></UserRoleModal></td> */}
-                  <td><UserRoleModal id={user._id} reload={reload} setReload={setReload}></UserRoleModal></td>
-                  
                   <td>
-                    <button onClick={()=> handleDelete(user._id)} className="bg-red-200 text-red-500 btn">
+                    <UserRoleModal
+                      id={user._id}
+                      reload={reload}
+                      setReload={setReload}
+                    ></UserRoleModal>
+                  </td>
+
+                  <td>
+                    <button
+                      onClick={() => handleDelete(user._id)}
+                      className="bg-red-200 text-red-500 btn"
+                    >
                       <FaTrash />
                     </button>
                   </td>
-                  {isBlocked ? (
-                    <td>
-                      <button  className="btn bg-[#B0E0E6]">Unblock</button>
-                    </td>
-                  ) : (
-                    <td>
-                      <button>Block</button>
-                    </td>
-                  )}
+                  <td>
+                    {isExist(user.email) ? (
+                      <button onClick={() => handleUnBlock(user.email)} className="btn">Unblock</button>
+                    ) : (
+                      <button
+                        onClick={() => handleBlock(user.email, user.name)}
+                        className="btn"
+                      >
+                        Block
+                      </button>
+                    )}
+                  </td>
+                  
                 </tr>
-                
               ))}
             </tbody>
           </table>

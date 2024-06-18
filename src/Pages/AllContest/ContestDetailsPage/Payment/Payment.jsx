@@ -66,6 +66,8 @@ const Payment = () => {
 
   return (
     <div className="flex justify-center">
+
+    
       <div className="w-1/2 border-4 border-gray-500 px-2 py-4 rounded-md my-10">
         {" "}
         <Elements stripe={stripePromise}>
