@@ -3,6 +3,7 @@ import BestContestCreator from "./BestContestCreator/BestContestCreator";
 import PopularContest from "./PopularContest/PopularContest";
 import SearchAll from "./SearchAll/SearchAll";
 import Advertise from "./Adevertise/Advertise";
+import { Helmet } from "react-helmet-async";
 
 const Home = () => {
 
@@ -19,6 +20,10 @@ const Home = () => {
   };
   return (
     <div>
+      <Helmet>
+        <title>Home</title>
+      </Helmet>
+
       {/* banner part */}
       <div className=" bg-Banner  w-full pb-52 bg-no-repeat  rounded-lg bg-cover px-10 ">
         {/* <div className="bg-gradient-to-r from-[#151515] to-[rgba(21, 21, 21, 0)] h-3/5"> */}

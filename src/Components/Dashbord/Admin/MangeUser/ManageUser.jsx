@@ -5,6 +5,7 @@ import UserRoleModal from "../../../UserRoleModal/UserRoleModal";
 import { useState } from "react";
 import Swal from "sweetalert2";
 import toast from "react-hot-toast";
+import { Helmet } from "react-helmet-async";
 
 const ManageUser = () => {
   
@@ -108,8 +109,17 @@ const ManageUser = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>Manage User</title>
+      </Helmet>
       <div>
-        <h1 className="text-3xl font-bold my-5">Manage user</h1>
+      <h1
+          data-aos="zoom-in"
+          data-aos-duration="1000"
+          className="flex  justify-center items-center text-3xl font-extrabold my-5"
+        >
+          Manage User
+        </h1>
       </div>
       <div>
         <div className="overflow-x-auto">

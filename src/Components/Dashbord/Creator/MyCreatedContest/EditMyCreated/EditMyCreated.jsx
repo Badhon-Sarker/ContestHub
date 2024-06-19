@@ -8,6 +8,7 @@ import axios from "axios";
 
 import { useQuery } from "@tanstack/react-query";
 import toast from "react-hot-toast";
+import { Helmet } from "react-helmet-async";
 
 const EditMyCreated = () => {
   const { id } = useParams();
@@ -70,7 +71,14 @@ const EditMyCreated = () => {
 
   return (
     <div>
-      <h1 className="flex justify-center items-center text-3xl font-extrabold mb-5">
+      <Helmet>
+        <title>Edit Contest</title>
+      </Helmet>
+      <h1
+        data-aos="zoom-in"
+        data-aos-duration="1000"
+        className="flex  justify-center items-center text-3xl font-extrabold my-5"
+      >
         Edit Contest
       </h1>
 

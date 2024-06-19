@@ -8,6 +8,7 @@ import { useParams } from "react-router-dom";
 // import { AuthContext } from "../../../../Provider/AuthProvider/AuthProvider";
 import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "./CheckoutForm";
+import { Helmet } from "react-helmet-async";
 
 const Payment = () => {
   const { id } = useParams();
@@ -66,6 +67,9 @@ const Payment = () => {
 
   return (
     <div className="flex justify-center">
+      <Helmet>
+        <title>Payment</title>
+      </Helmet>
 
     
       <div className="w-1/2 border-4 border-gray-500 px-2 py-4 rounded-md my-10">

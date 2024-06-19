@@ -23,7 +23,7 @@ const Navbar = () => {
       <NavLink
         className={({ isActive }) =>
           isActive
-            ? "text-[#B0E0E6] lg:text-black lg:border-b-2 border-[#B0E0E6]"
+            ? "text-orange-500 lg:text-black lg:border-b-2 border-orange-500"
             : ""
         }
         // #98FF98
@@ -35,7 +35,7 @@ const Navbar = () => {
       <NavLink
         className={({ isActive }) =>
           isActive
-            ? "text-[#B0E0E6] lg:text-black lg:border-b-2 border-[#B0E0E6]"
+            ? "text-orange-500 lg:text-black lg:border-b-2 border-orange-500"
             : ""
         }
         // #98FF98

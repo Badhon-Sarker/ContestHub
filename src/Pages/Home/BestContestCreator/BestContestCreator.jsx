@@ -5,7 +5,7 @@ import BestCreator from "./BestCreator";
 
 const BestContestCreator = () => {
   const [allContest, setAllContest] = useState([]);
-  const [creators, setCreators] = useState([]);
+//   const [creators, setCreators] = useState([]);
   let doc = [];
 
   const { data: allContests = "" } = useQuery({

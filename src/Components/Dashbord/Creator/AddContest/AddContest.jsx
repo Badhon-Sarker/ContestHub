@@ -5,6 +5,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { AuthContext } from "../../../../Provider/AuthProvider/AuthProvider";
+import { Helmet } from "react-helmet-async";
 
 
 const AddContest = () => {
@@ -68,9 +69,16 @@ const AddContest = () => {
 
   return (
     <div>
-      <h1 className="flex justify-center items-center text-3xl font-extrabold mb-5">
-        Add Contest
-      </h1>
+      <Helmet>
+        <title>Add Contest</title>
+      </Helmet>
+      <h1
+          data-aos="zoom-in"
+          data-aos-duration="1000"
+          className="flex  justify-center items-center text-3xl font-extrabold my-5"
+        >
+          Add Contest
+        </h1>
       <div>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="md:flex justify-between gap-2">

@@ -5,6 +5,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { AuthContext } from "../../../Provider/AuthProvider/AuthProvider";
 import toast from "react-hot-toast";
 import CardProfile from "./CardProfile";
+import { Helmet } from "react-helmet-async";
 // import DatePicker from "react-datepicker";
 // import "react-datepicker/dist/react-datepicker.css";
 
@@ -131,6 +132,9 @@ const isExist = (id) =>{
 
   return (
     <div>
+      <Helmet>
+        <title>Details</title>
+      </Helmet>
       <h1 className="flex justify-center items-center text-3xl font-extrabold mb-5">
         {Details.contestName}
       </h1>

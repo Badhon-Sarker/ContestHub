@@ -1,6 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Helmet } from "react-helmet-async";
+import AOS from "aos";
+import "aos/dist/aos.css"; // You can also use <link> for styles
+// ..
+AOS.init();
 
 const LeaderBoard = () => {
   const [AllUsers, setAllUsers] = useState([]);
@@ -42,10 +47,20 @@ const LeaderBoard = () => {
     setLeaders(leaders);
   }, [AllUsers, AllWinner]);
 
- 
-
   return (
     <div>
+      <Helmet>
+        <title>Leaderboard</title>
+      </Helmet>
+      <div>
+        <h1
+          data-aos="zoom-in"
+          data-aos-duration="1000"
+          className="flex  justify-center items-center text-3xl font-extrabold my-5"
+        >
+          Leaderboard
+        </h1>
+      </div>
       <div className="overflow-x-auto">
         <table className="table">
           {/* head */}
@@ -63,8 +78,7 @@ const LeaderBoard = () => {
             {leaders.map((leader, idx) => (
               <tr key={idx}>
                 <th>
-                <div className="font-bold">{idx+1}</div>
-                  
+                  <div className="font-bold">{idx + 1}</div>
                 </th>
                 <td>
                   <div className="flex items-center gap-3">
@@ -87,7 +101,9 @@ const LeaderBoard = () => {
                   </div>
                 </td>
 
-                <td><div className="font-bold">{leader.Win}</div></td>
+                <td>
+                  <div className="font-bold">{leader.Win}</div>
+                </td>
               </tr>
             ))}
           </tbody>

@@ -12,7 +12,8 @@ const PopularContest = () => {
 
     queryFn: async () => {
       const { data } = await axios.get(`${import.meta.env.VITE_URL}/contest`);
-      setAllContest(data);
+      const show = data.filter(item => item.contestStatus === 'accepted')
+      setAllContest(show);
       return data;
     },
   });

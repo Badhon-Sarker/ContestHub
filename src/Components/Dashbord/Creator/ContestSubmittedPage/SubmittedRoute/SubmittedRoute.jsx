@@ -1,104 +1,100 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Helmet } from "react-helmet-async";
 import toast from "react-hot-toast";
 import { useParams } from "react-router-dom";
 
-
 const SubmittedRoute = () => {
+  const [declared, setDeclared] = useState(false);
 
-    const [declared, setDeclared] = useState(false)
+  const { name } = useParams();
 
-    const {name} = useParams()
+  const { data: submittedDetails = [] } = useQuery({
+    queryKey: ["submittedDetails", name],
+    queryFn: async () => {
+      const res = await axios.get(
+        `${import.meta.env.VITE_URL}/submittedDetails/${name}`
+      );
+      return res.data;
+    },
+  });
 
-    const { data: submittedDetails = []} = useQuery({
-        queryKey: ["submittedDetails", name],
-        queryFn: async () => {
-          const res = await axios.get(
-            `${import.meta.env.VITE_URL}/submittedDetails/${name}`
-          );
-          return res.data;
-        },
+  const { data: winnerDetails = [] } = useQuery({
+    queryKey: ["winnerDetails", name],
+    queryFn: async () => {
+      const res = await axios.get(
+        `${import.meta.env.VITE_URL}/winnerDetails/${name}`
+      );
+      return res.data;
+    },
+  });
+
+  useEffect(() => {
+    if (winnerDetails.length > 0) {
+      setDeclared(true);
+    }
+  }, [winnerDetails.length]);
+
+  const handleWinner = (
+    id,
+    winnerName,
+    email,
+    image,
+    prizeMoney,
+    contestDescription,
+    contestCreator
+  ) => {
+    if (winnerDetails.length > 0) {
+      return toast.error("already decided winner");
+    }
+
+    const data = {
+      winnerName: winnerName,
+      winnerEmail: email,
+      submittedId: id,
+      contestName: name,
+      contestImage: image,
+      prizeMoney: prizeMoney,
+      contestDescription: contestDescription,
+      contestCreator: contestCreator,
+    };
+
+    axios
+      .post(`${import.meta.env.VITE_URL}/winners`, data)
+      .then((res) => {
+        if (res.data.insertedId) {
+          toast.success("Successfully added winner");
+          setDeclared(true);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
       });
 
+    const losers = submittedDetails.filter(
+      (user) => email !== user.participatorEmail
+    );
 
-      const { data: winnerDetails = []} = useQuery({
-        queryKey: ["winnerDetails", name],
-        queryFn: async () => {
-          const res = await axios.get(
-            `${import.meta.env.VITE_URL}/winnerDetails/${name}`
-          );
-          return res.data;
-        },
+    // console.log(losers)
+
+    axios
+      .post(`${import.meta.env.VITE_URL}/losers`, losers)
+      .then((res) => {
+        if (res.data.insertedId) {
+          // toast.success("Successfully added winner");
+          setDeclared(true);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
       });
+  };
 
-
-      useEffect(()=>{
-
-        if(winnerDetails.length>0){
-            setDeclared(true)
-          }
-    
-
-      },[winnerDetails.length])
-
+  return (
+    <div>
       
-      const handleWinner = (id, winnerName ,email, image, prizeMoney, contestDescription, contestCreator) =>{
-
-
-        if(winnerDetails.length > 0){
-            return toast.error('already decided winner')
-        }
-
-
-
-        const data = {
-            
-            winnerName: winnerName,
-            winnerEmail: email,
-            submittedId: id,
-            contestName: name,
-            contestImage: image,
-            prizeMoney: prizeMoney,
-            contestDescription: contestDescription,
-            contestCreator: contestCreator
-
-        }
-
-        axios.post(`${import.meta.env.VITE_URL}/winners`, data)
-        .then((res) => {
-          if (res.data.insertedId) {
-            toast.success("Successfully added winner");
-            setDeclared(true)
-                    
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-
-
-        const losers = submittedDetails.filter(user =>  email !== user.participatorEmail)
-
-        // console.log(losers)
-        
-        axios.post(`${import.meta.env.VITE_URL}/losers`, losers)
-        .then((res) => {
-          if (res.data.insertedId) {
-            // toast.success("Successfully added winner");
-            setDeclared(true)
-                    
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-        
-      }
-
-    return (
-        <div>
-            <div>
+      <div>
         <div className="overflow-x-auto">
           <table className="table">
             {/* head */}
@@ -108,8 +104,6 @@ const SubmittedRoute = () => {
                 <th>Perticipator Name</th>
                 <th>Email</th>
                 <th>Submitted Task</th>
-
-                
               </tr>
             </thead>
             <tbody>
@@ -120,17 +114,38 @@ const SubmittedRoute = () => {
                   <td>{item.participatorName}</td>
                   <td>{item.participatorEmail}</td>
                   <td className="text-primary">link</td>
-                  <td>{declared? <button disabled className="btn">Declare Win</button> : <button onClick={()=> handleWinner(item._id, item.participatorName, item.participatorEmail , item.image, item.prizeMoney, item.contestDescription, item.contestCreator )} className="btn">Declare Win</button>}</td>
-                 
+                  <td>
+                    {declared ? (
+                      <button disabled className="btn">
+                        Declare Win
+                      </button>
+                    ) : (
+                      <button
+                        onClick={() =>
+                          handleWinner(
+                            item._id,
+                            item.participatorName,
+                            item.participatorEmail,
+                            item.image,
+                            item.prizeMoney,
+                            item.contestDescription,
+                            item.contestCreator
+                          )
+                        }
+                        className="btn"
+                      >
+                        Declare Win
+                      </button>
+                    )}
+                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
       </div>
-            
-        </div>
-    );
+    </div>
+  );
 };
 
 export default SubmittedRoute;

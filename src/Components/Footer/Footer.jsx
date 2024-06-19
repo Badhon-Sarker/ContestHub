@@ -55,7 +55,7 @@ const Footer = () => {
                   href="#"
                   className="block mt-2 text-sm text-gray-600 dark:text-gray-400 hover:underline"
                 >
-                  Volunteer
+                  Contest
                 </a>
               </div>
 
@@ -67,13 +67,13 @@ const Footer = () => {
                   href="#"
                   className="block mt-2 text-sm text-gray-600 dark:text-gray-400 hover:underline"
                 >
-                  Agro
+                  Gaming
                 </a>
                 <a
                   href="#"
                   className="block mt-2 text-sm text-gray-600 dark:text-gray-400 hover:underline"
                 >
-                  Human
+                  Education
                 </a>
                 <a
                   href="#"
@@ -103,7 +103,7 @@ const Footer = () => {
                   href="#"
                   className="block mt-2 text-sm text-gray-600 dark:text-gray-400 hover:underline"
                 >
-                  Environment
+                  Green Energy
                 </a>
               </div>
 
@@ -115,7 +115,7 @@ const Footer = () => {
                   +1 526 654 8965
                 </span>
                 <span className="block mt-2 text-sm text-gray-600 dark:text-gray-400 hover:underline">
-                  humanity@gmail.com
+                  contesthub@gmail.com
                 </span>
               </div>
             </div>
@@ -126,7 +126,7 @@ const Footer = () => {
 
         <div>
           <p className="text-center text-gray-500 dark:text-gray-400">
-            © Humanity - All rights reserved -2024
+            © ContestHub - All rights reserved -2024
           </p>
         </div>
       </div>

@@ -12,10 +12,7 @@ import ErrorPage from "./Components/ErrorPage/ErrorPage";
 import { Toaster } from "react-hot-toast";
 
 // import Users from "./Components/Dashbord/Users/Users";
-import {
-  QueryClient,
-  QueryClientProvider,
-} from "@tanstack/react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import ManageUser from "./Components/Dashbord/Admin/MangeUser/ManageUser";
 import Dashboard from "./Components/Dashbord/Dashboard";
 import PerticipatedContest from "./Components/Dashbord/Users/PerticipatedContest/PerticipatedContest";
@@ -33,8 +30,7 @@ import SubmittedRoute from "./Components/Dashbord/Creator/ContestSubmittedPage/S
 import ManageContest from "./Components/Dashbord/Admin/ManageContest/ManageContest";
 import LeaderBoard from "./Pages/LeaderBoard/LeaderBoard";
 import SearchAll from "./Pages/Home/SearchAll/SearchAll";
-
-
+import { HelmetProvider } from "react-helmet-async";
 
 const queryClient = new QueryClient();
 
@@ -57,88 +53,100 @@ const router = createBrowserRouter([
         element: <Register></Register>,
       },
       {
-        path: '/allContest',
-        element: <AllContest></AllContest>
+        path: "/allContest",
+        element: <AllContest></AllContest>,
       },
       {
-        path: '/contestDetails/:id',
-        element: <PrivateRoutes><ContestDetailspage></ContestDetailspage></PrivateRoutes>
+        path: "/contestDetails/:id",
+        element: (
+          <PrivateRoutes>
+            <ContestDetailspage></ContestDetailspage>
+          </PrivateRoutes>
+        ),
       },
       {
-        path: '/payment/:id',
-        element: <PrivateRoutes><Payment></Payment></PrivateRoutes>
+        path: "/payment/:id",
+        element: (
+          <PrivateRoutes>
+            <Payment></Payment>
+          </PrivateRoutes>
+        ),
       },
       {
-        path: '/leaderboard',
-        element: <LeaderBoard></LeaderBoard>
+        path: "/leaderboard",
+        element: <LeaderBoard></LeaderBoard>,
       },
       {
-        path: '/search/:query',
-        element: <SearchAll></SearchAll>
-      }
+        path: "/search/:query",
+        element: <SearchAll></SearchAll>,
+      },
     ],
   },
   {
     path: "dashboard",
-    element: <PrivateRoutes><Dashboard></Dashboard></PrivateRoutes>,
+    element: (
+      <PrivateRoutes>
+        <Dashboard></Dashboard>
+      </PrivateRoutes>
+    ),
     children: [
-     
       {
-        path: 'manageUsers',
-        element: <ManageUser></ManageUser>
+        path: "manageUsers",
+        element: <ManageUser></ManageUser>,
       },
       {
-        path: 'manageContest',
-        element: <ManageContest></ManageContest>
+        path: "manageContest",
+        element: <ManageContest></ManageContest>,
       },
       {
-        path: 'perticipatedContest',
-        element: <PerticipatedContest></PerticipatedContest>
+        path: "perticipatedContest",
+        element: <PerticipatedContest></PerticipatedContest>,
       },
       {
-        path: 'addContest',
-        element: <AddContest></AddContest>
+        path: "addContest",
+        element: <AddContest></AddContest>,
       },
       {
-        path: 'myCreatedContest',
-        element: <MyCreatedContest></MyCreatedContest>
+        path: "myCreatedContest",
+        element: <MyCreatedContest></MyCreatedContest>,
       },
       {
-        path: 'contestSubmitted',
-        element: <ContestSubmittedPage></ContestSubmittedPage>
+        path: "contestSubmitted",
+        element: <ContestSubmittedPage></ContestSubmittedPage>,
       },
       {
-        path: 'myProfile',
-        element: <MyProfile></MyProfile>
+        path: "myProfile",
+        element: <MyProfile></MyProfile>,
       },
       {
-        path: 'myWinning',
-        element: <MyWinningContest></MyWinningContest>
+        path: "myWinning",
+        element: <MyWinningContest></MyWinningContest>,
       },
       {
-        path: '/dashboard/myCreatedContest/editContest/:id',
-        element: <EditMyCreated></EditMyCreated>
+        path: "/dashboard/myCreatedContest/editContest/:id",
+        element: <EditMyCreated></EditMyCreated>,
       },
       {
-        path: '/dashboard/contestSubmitted/submitted/:name',
-        element: <SubmittedRoute></SubmittedRoute>
+        path: "/dashboard/contestSubmitted/submitted/:name",
+        element: <SubmittedRoute></SubmittedRoute>,
       },
       {
-        path: '/dashboard/myCreatedContest/submitted/:name',
-        element: <SubmittedRoute></SubmittedRoute>
-      }
-      
+        path: "/dashboard/myCreatedContest/submitted/:name",
+        element: <SubmittedRoute></SubmittedRoute>,
+      },
     ],
   },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <AuthProvider>
-      <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
-      </QueryClientProvider>
-    </AuthProvider>
-    <Toaster />
+    <HelmetProvider>
+      <AuthProvider>
+        <QueryClientProvider client={queryClient}>
+          <RouterProvider router={router} />
+        </QueryClientProvider>
+      </AuthProvider>
+      <Toaster />
+    </HelmetProvider>
   </React.StrictMode>
 );

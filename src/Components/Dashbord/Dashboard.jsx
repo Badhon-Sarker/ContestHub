@@ -45,15 +45,15 @@ const Dashboard = () => {
 
             {role === "admin" && (
               <>
-                <li className="bg-[#B0E0E6] rounded-lg">
+                <li className="bg-orange-500 rounded-lg">
                   <Link to={"/dashboard/manageUsers"}>Manage User</Link>
                 </li>
 
-                <li className="bg-[#B0E0E6] rounded-lg">
+                <li className="bg-orange-500 rounded-lg">
                   <Link to={"/dashboard/manageContest"}>Manage Contests</Link>
                 </li>
 
-                <li className="bg-[#B0E0E6] rounded-lg">
+                <li className="bg-orange-500 rounded-lg">
                   <Link to={"/"}>Home</Link>
                 </li>
               </>
@@ -61,19 +61,19 @@ const Dashboard = () => {
 
             {role === "creator" && (
               <>
-                <li className="bg-[#B0E0E6] rounded-lg">
+                <li className="bg-orange-500 rounded-lg">
                   <Link to={"addContest"}>Add Contest</Link>
                 </li>
 
-                <li className="bg-[#B0E0E6] rounded-lg">
+                <li className="bg-orange-500 rounded-lg">
                   <Link to={"myCreatedContest"}>My Created Contest</Link>
                 </li>
 
-                <li className="bg-[#B0E0E6] rounded-lg">
+                <li className="bg-orange-500 rounded-lg">
                   <Link to={"contestSubmitted"}>Contest Submitted Page</Link>
                 </li>
 
-                <li className="bg-[#B0E0E6] rounded-lg">
+                <li className="bg-orange-500 rounded-lg">
                   <Link to={"/"}>Home</Link>
                 </li>
               </>
@@ -81,19 +81,19 @@ const Dashboard = () => {
 
             {role === "user" && (
               <>
-                <li className="bg-[#B0E0E6] rounded-lg">
+                <li className="bg-orange-500 rounded-lg">
                   <Link to={"perticipatedContest"}>My Participated Contest</Link>
                 </li>
 
-                <li className="bg-[#B0E0E6] rounded-lg">
+                <li className="bg-orange-500 rounded-lg">
                   <Link to={"myWinning"}>My Winning Contest</Link>
                 </li>
 
-                <li className="bg-[#B0E0E6] rounded-lg">
+                <li className="bg-orange-500 rounded-lg">
                   <Link to={"myProfile"}>My Profile</Link>
                 </li>
 
-                <li className="bg-[#B0E0E6] rounded-lg">
+                <li className="bg-orange-500 rounded-lg">
                   <Link to={"/"}>Home</Link>
                 </li>
               </>
