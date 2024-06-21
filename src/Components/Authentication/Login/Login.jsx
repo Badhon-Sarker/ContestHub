@@ -43,7 +43,7 @@ const Login = () => {
         axios
           .post(`${import.meta.env.VITE_URL}/users`, userInfo)
           .then((res) => {
-            console.log(res.data)
+            // console.log(res.data)
             toast.success("Login Successfull");
             navigate("/");
           });
@@ -61,7 +61,7 @@ const Login = () => {
             Login now!
           </h1>
         </div>
-        <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-gradient-to-r from-[#8ea295] to-[#519e87] bg-transparent border-2 border-white my-10">
+        <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-gradient-to-r from-pink-500  to-purple-500 bg-transparent border-2 border-white my-10">
           <form onSubmit={handleSubmit(onSubmit)} className="card-body">
             <div className="form-control">
               <label className="label">
@@ -72,7 +72,7 @@ const Login = () => {
               <input
                 type="email"
                 placeholder="Your email"
-                className="input input-bordered bg-green-300"
+                className="input input-bordered "
                 {...register("loginEmail", { required: true })}
               />
               {errors.loginEmail?.type === "required" && (
@@ -88,7 +88,7 @@ const Login = () => {
               <input
                 type="password"
                 placeholder="Your password"
-                className="input input-bordered bg-green-300"
+                className="input input-bordered "
                 {...register("loginPassword", { required: true })}
               />
               {errors.loginPass?.type === "required" && (
@@ -111,7 +111,7 @@ const Login = () => {
             </div>
 
             <div className="form-control mt-2">
-              <button className="btn bg-green-300 text-white ">Login</button>
+              <button className="btn  bg-primary text-white ">Login</button>
             </div>
             <div>
               <div className="divider">OR</div>
@@ -121,7 +121,7 @@ const Login = () => {
               <div className="flex flex-col gap-2">
                 <div
                   onClick={handleGoogle}
-                  className=" bg-green-300 text-white flex justify-center items-center gap-2 py-2 rounded-lg border"
+                  className=" bg-primary text-white flex justify-center items-center gap-2 py-2 rounded-lg border"
                 >
                   <div>
                     <GrGoogle />

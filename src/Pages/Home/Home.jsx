@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import BestContestCreator from "./BestContestCreator/BestContestCreator";
 import PopularContest from "./PopularContest/PopularContest";
 import SearchAll from "./SearchAll/SearchAll";
@@ -6,17 +6,11 @@ import Advertise from "./Adevertise/Advertise";
 import { Helmet } from "react-helmet-async";
 
 const Home = () => {
-
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
     const search = e.target.search.value;
-    navigate(`/search/${search}`)
-
-
-
-    
-    
+    navigate(`/search/${search}`);
   };
   return (
     <div>
@@ -25,7 +19,11 @@ const Home = () => {
       </Helmet>
 
       {/* banner part */}
-      <div className=" bg-Banner  w-full pb-52 bg-no-repeat  rounded-lg bg-cover px-10 ">
+      <div
+        data-aos="fade-down"
+        data-aos-duration="1000"
+        className=" bg-Banner  w-full pb-52 bg-no-repeat  rounded-lg bg-cover px-10 "
+      >
         {/* <div className="bg-gradient-to-r from-[#151515] to-[rgba(21, 21, 21, 0)] h-3/5"> */}
         <div className="space-y-5">
           <h1 className="text-4xl text-white font-bold pt-20">
@@ -66,36 +64,26 @@ const Home = () => {
 
       {/* popular contest starts */}
       <div className="my-5">
-
         <h1 className="text-2xl font-bold text-center">Popular Contest</h1>
 
         <PopularContest></PopularContest>
 
-
-        {/* best contest creator */}
-        <div>
-        <h1 className="text-2xl font-bold text-center my-10">Best Contest Creator</h1>
-
-        <BestContestCreator></BestContestCreator>
-
-        </div>
-
-
-
-
-
+        <div className="flex justify-center items-center my-5"><Link to={'/allContest'}><button className="btn bg-gray-300">See All</button></Link></div>
       </div>
-
 
       {/* advertise here */}
-      <div className="my-10" >
-
+      <div data-aos="fade-up" data-aos-duration="1000" className="my-10">
         <Advertise></Advertise>
-
       </div>
 
+      {/* best contest creator */}
+      <div className="my-5">
+        <h1 className="text-2xl font-bold text-center my-10">
+          Best Contest Creator
+        </h1>
 
-
+        <BestContestCreator></BestContestCreator>
+      </div>
     </div>
   );
 };

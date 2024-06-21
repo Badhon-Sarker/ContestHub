@@ -4,10 +4,11 @@ import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../../Provider/AuthProvider/AuthProvider";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const CheckoutForm = ({ id }) => {
   const { user } = useContext(AuthContext);
-
+  const navigation = useNavigate()
   const [error, setError] = useState("");
   const [clientSecret, setClientSecret] = useState("");
   const [success, setSuccess] = useState("");
@@ -104,10 +105,10 @@ const CheckoutForm = ({ id }) => {
     });
 
     if (error) {
-      console.log("payment error", error);
+      
       setError(error.message);
     } else {
-      console.log("payment method", paymentMethod);
+    //   console.log("payment method", paymentMethod);
       setError("");
     }
 
@@ -123,12 +124,14 @@ const CheckoutForm = ({ id }) => {
       });
 
     if (confirmError) {
-      console.log("confirm error");
+    //   console.log("confirm error");
     } else {
       // console.log('payment intent', paymentIntent)
       if (paymentIntent.status === "succeeded") {
         setSuccess("Payment succeed");
+        toast.success("Payment succeed")
         handleSubmitData();
+        navigation('/allContest')
       }
     }
   };

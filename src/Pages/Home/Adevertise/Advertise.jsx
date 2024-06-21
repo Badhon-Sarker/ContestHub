@@ -39,7 +39,7 @@ const Advertise = () => {
       };
     });
 
-    const leaders = winCount.sort((a, b) => b.Wins - a.Wins);
+    const leaders = winCount.sort((a, b) => b.Win - a.Win);
     const first = leaders.slice(0, 1);
 
     setFirst(first);

@@ -32,9 +32,7 @@ const LeaderBoard = () => {
 
   useEffect(() => {
     const winCount = AllUsers.map((user) => {
-      const Win = AllWinner.filter(
-        (winner) => winner.winnerEmail === user.email
-      ).length;
+      const Win = AllWinner.filter((winner) => winner.winnerEmail === user.email).length;
 
       return {
         ...user,
@@ -42,10 +40,16 @@ const LeaderBoard = () => {
       };
     });
 
-    const leaders = winCount.sort((a, b) => b.Wins - a.Wins);
+    
 
-    setLeaders(leaders);
+
+    const leader = winCount.sort((a, b) => b.Win - a.Win);
+    
+
+    setLeaders(leader);
   }, [AllUsers, AllWinner]);
+
+  
 
   return (
     <div>
